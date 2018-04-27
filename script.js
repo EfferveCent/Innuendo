@@ -5,6 +5,7 @@ var path = require('path')
 var http = require('http').Server(app)
 var io = require('socket.io')(http)
 var fs = require('fs')
+
 var data1 = ""
 function a(){
   fs.readFile('messages.txt', function(err, data) {
@@ -36,9 +37,15 @@ app.get('/msg', function(req, res){
 
 //END OF API
 
-io.on('connection', function(socket){
-  
+function addMessage(data){
+  let temp = ","+JSON.stringify(data)
+  fs.appendFile('messages.txt', temp, function (err) {
+    if (err) throw err;
+    console.log('newMessage!');
+  });
+}
 
+io.on('connection', function(socket){
   console.log('a user connected', data1);
   socket.emit('start', data1) //hmm[Math.floor(Math.random()*3)]
   socket.on('message', function(data){
@@ -51,28 +58,19 @@ io.on('connection', function(socket){
       socket.broadcast.emit('reload')}, 1000)
       return;
     }else{
-      let temp = ","+JSON.stringify(data)
-      fs.appendFile('messages.txt', temp, function (err) {
-        if (err) throw err;
-        console.log('newMessage!');
-      });
+      addMessage(data)
       socket.emit('Message',data)
       socket.broadcast.emit('message',data)
     }
   })
+  
   socket.on('apiMsg', function(a_,m_){
-    let data = {
-      "author":a_,
-      "message":m_
-    }
+    if(a_ == "blamza" || a_ == "Blamza") return
+    let data = {"author":a_,"message":m_}
 
-    let temp = ","+JSON.stringify(data)
-      fs.appendFile('messages.txt', temp, function (err) {
-        if (err) throw err;
-        console.log('newMessage!');
-      });
-      socket.emit('good')
-      socket.broadcast.emit('message',data)
+    addMessage(data)
+    socket.emit('good')
+    socket.broadcast.emit('message',data)
     }
   )
 

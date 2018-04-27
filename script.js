@@ -81,11 +81,13 @@ io.on('connection', function(socket){
     }
   )
 
-
+  socket.on('getPeople', function(){
+    socket.emit(PEOPLE.toString())
+  })
 
   socket.on('disconnect', function(){
     console.log('user disconnected'); 
-    PEOPLE--
+    PEOPLE--;
   });
 });
 

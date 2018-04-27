@@ -5,7 +5,6 @@ var path = require('path')
 var http = require('http').Server(app)
 var io = require('socket.io')(http)
 var fs = require('fs')
-var hmm = ["beep", "boop", "bleep"]
 var data1 = ""
 function a(){
   fs.readFile('messages.txt', function(err, data) {

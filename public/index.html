@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
+    <link rel="SHORTCUT ICON" href="./favicon.ico" />
+    <link rel="icon" href="./favicon.ico" type="image/ico" />
+    <title>innuendo</title>
+</head>
+<body>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper black">
+                <a href="#" class="brand-logo center ">innuendo</a>
+            </div>
+        </nav>
+    </div>
+
+    <div id="app" class="container">
+        <ul class="collection z-depth-3">
+            <li class="collection-item" v-for="mes in messages">{{mes.author}}: {{ mes.message }}</li>
+        </ul>
+    </div>
+
+    <div class="fixed-action-btn">
+    <a class="btn-floating btn-large black" onclick="sendMessage()">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+        <li><a class="btn-floating black" href="#top"><i class="material-icons">arrow_upward</i></a></li>
+        <li><a class="btn-floating black" href="#bot"><i class="material-icons">arrow_downward</i></a></li>
+    </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="app.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script>
+        
+        $(document).ready(function(){
+            $('.fixed-action-btn').floatingActionButton()
+        })
+
+        $("a[href='#top']").click(function() {
+            $("html, body").animate({ scrollTop: 0 }, "slow")
+            return false
+        });
+
+        $("a[href='#bot']").click(function() {
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow")
+        return false
+        })
+
+        window.onload = checkCookie();
+        var socket = io()
+        
+        function sendMessage(){
+            Mes = {
+                message:prompt("What is your message?"),
+                author:getCookie("username")
+            }
+            socket.emit('message', Mes)
+        }
+
+        socket.on('start', function(data){
+            data.forEach(mess => {
+                info.messages.push(mess)
+            });
+        })
+        socket.on('Message', function(data){
+            info.messages.push(data)
+
+        })
+        socket.on('message', function(data){
+            info.messages.push(data)
+            Notification.requestPermission(spawnNotification(data.author+": "+data.message, "innuendo"));
+        })
+        socket.on('reload', ()=>{setTimeout(window.location.reload(), 1000)})
+    </script>     
+</body>
+</html>

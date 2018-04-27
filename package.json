@@ -1,0 +1,20 @@
+{
+  "name": "innuendo",
+  "version": "1.0.0",
+  "description": "Chat",
+  "main": "script.js",
+  "scripts": {
+    "start": "node script.js"
+  },
+  "author": "Hamziniii",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "socket.io": "^2.1.0",
+    "vue": "^2.5.16"
+  },
+  "engines": {
+    "node": "8.10.0"
+  }
+}

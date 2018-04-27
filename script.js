@@ -82,7 +82,7 @@ io.on('connection', function(socket){
   )
 
   socket.on('getPeople', function(){
-    socket.emit(PEOPLE.toString())
+    socket.emit('sendPeople', PEOPLE.toString())
   })
 
   socket.on('disconnect', function(){

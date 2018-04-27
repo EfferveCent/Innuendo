@@ -62,10 +62,12 @@
         
         function sendMessage(){
             Mes = {
-                message:prompt("What is your message?"),
+                message:prompt("What is your message?")/*string*/,
                 author:getCookie("username")
             }
             if(Mes.message == null || Mes.message == "") return
+            if(Mes.message.includes("/ban") || Mes.message.includes("/mute") || Mes.message.includes("/kick") || Mes.message.includes("/ban")) alert("stop it"); return
+
             console.log(Mes)
             socket.emit('message', Mes)
         }

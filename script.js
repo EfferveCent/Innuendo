@@ -5,6 +5,7 @@ var path = require('path')
 var http = require('http').Server(app)
 var io = require('socket.io')(http)
 var fs = require('fs')
+var PEOPLE = 0;
 
 var data1 = ""
 function a(){
@@ -46,24 +47,30 @@ function addMessage(data){
 }
 
 io.on('connection', function(socket){
-  console.log('a user connected', data1);
+  PEOPLE++
+  console.log('a user connected', data1)
   socket.emit('start', data1) //hmm[Math.floor(Math.random()*3)]
   socket.on('message', function(data){
-    if(data.message == "clear" && data.author == "Hamziniii"){
-      fs.writeFile('messages.txt', '{"message":"herro ʕ•ᴥ•ʔ","author":"Hamziniii"}', function(err){
-        if (err) throw err;
-        console.log('Clear!');
-      })
-      setTimeout(()=>{socket.emit('reload')
-      socket.broadcast.emit('reload')}, 1000)
-      return;
+    if(data.author == "Hamziniii" && data.message.includes("`")){
+      switch(data.message){
+        case "`clear":
+          fs.writeFile('messages.txt', '{"message":"herro ʕ•ᴥ•ʔ","author":"Hamziniii"}', function(err){
+            if (err) throw err;
+            console.log('Clear!');
+          })
+        case "`reload":
+          setTimeout(()=>{socket.emit('reload')
+          socket.broadcast.emit('reload')}, 1000)
+          return;
+          break;
+      }
     }else{
       addMessage(data)
       socket.emit('Message',data)
       socket.broadcast.emit('message',data)
     }
   })
-  
+
   socket.on('apiMsg', function(a_,m_){
     if(a_ == "blamza" || a_ == "Blamza") return
     let data = {"author":a_,"message":m_}
@@ -74,8 +81,11 @@ io.on('connection', function(socket){
     }
   )
 
+
+
   socket.on('disconnect', function(){
     console.log('user disconnected'); 
+    PEOPLE--
   });
 });
 

@@ -73,6 +73,7 @@ io.on('connection', function(socket){
 
   socket.on('apiMsg', function(a_,m_){
     if(a_ == "blamza" || a_ == "Blamza") return
+    if(m_ == "blamza" || m_ == "Blamza") return
     let data = {"author":a_,"message":m_}
 
     addMessage(data)

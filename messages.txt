@@ -1,1 +1,1 @@
-{"message":"hello ʕ•ᴥ•ʔ","author":"Hamziniii"},{"message":"hello","author":"Hamziniii"},{"message":"hello","author":"test"},{"message":"","author":"test"},{"message":"","author":"test"}
+{"message":"hello ʕ•ᴥ•ʔ","author":"Hamziniii"},{"message":"hello","author":"Hamziniii"},{"message":"hello","author":"test"},{"message":"","author":"test"},{"message":"","author":"test"},{"message":"asdf","author":"test"},{"message":"fdasf","author":"test"},{"message":"asdf","author":"test"},{"message":"sadf","author":"test"},{"message":"reload","author":"Hamziniii"}

@@ -42,7 +42,18 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script>
-        
+        // if(!('serviceWorker' in navigator)){
+        //     alert('BEEP BOOP! something is not supported')
+        // }else{
+        //     console.log('works')
+        // }
+        // navigator.serviceWorker.register(
+        //     'sW.js'
+        // ).then(
+        //     (registration)
+        // )
+
+
         $(document).ready(function(){
             $('.fixed-action-btn').floatingActionButton()
         })
@@ -66,7 +77,7 @@
                 author:getCookie("username")
             }
             if(Mes.message == null || Mes.message == "") return
-            if(Mes.message.includes("/ban") || Mes.message.includes("/mute") || Mes.message.includes("/kick") || Mes.message.includes("/ban")) alert("stop it"); return
+            if(Mes.message.includes("/ban") || Mes.message.includes("/mute") || Mes.message.includes("/kick")){ alert("stop it"); return;}
 
             console.log(Mes)
             socket.emit('message', Mes)

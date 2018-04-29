@@ -1,4 +1,4 @@
 # Innuendo
-~ Chat
-~ Its the spice
-~ Made by: Me
+~ Chat<br>
+~ Its the spice<br>
+~ Made by Me

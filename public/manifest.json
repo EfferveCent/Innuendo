@@ -1,0 +1,12 @@
+{
+ "name": "Innuendo",
+ "short_name": "innuendo",
+ "gcm_sender_id": "103953800507",
+ "icons": [
+     {
+         "src": "icon.png",
+         "sizes": "64x64",
+         "type": "images/png"
+     }
+ ]   
+}
